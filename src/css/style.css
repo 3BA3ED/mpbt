@@ -1,0 +1,37 @@
+.form-controls-top {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.form-controls-mid {
+	margin-top: -1px;
+	border-radius: 0;
+}
+
+.form-controls-bot {
+	margin-top: -1px;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.container {
+	max-width: 1200px !important;
+}
+
+.icon-flipped::before {
+	transform: rotate(180deg);
+}
+
+.alert-container {
+	position: fixed;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, 0);
+	z-index: 9999;
+	width: 95vw;
+	max-width: 1200px;
+}

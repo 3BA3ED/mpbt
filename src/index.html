@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+	<head>
+		<meta charset="utf-8">
+		<title>Mnemonic Phrase Backup Tool</title>
+		<meta content="Mnemonic phrase backup tool" name="description">
+		<link
+			id="favicon"
+			rel="shortcut icon"
+			type="image/png"
+			href="data:image/png;base64,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">
+		<link rel="stylesheet" href="css/style.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../libs/coi-serviceworker.js"></script>
+	</head>
+	<body>
+		<div class="alert-container" id="alertContainer"></div>
+		<div class="container">
+			<div class="text-center">
+				<h1 class="d-inline">Mnemonic Phrase Backup Tool</h1>
+				<span class="text-nowrap ms-1">
+					<small class="text-body-secondary" id="version"></small>
+					<a href="https://github.com/3BA3ED/mpbt" target="_blank">
+						<i class="bi-github" style="color: black"></i>
+					</a>
+				</span>
+			</div>
+
+			<h5 class="text-center text-danger hidden" id="onlineCheck">
+				<i class="bi bi-exclamation-triangle text-danger"></i>
+				Browser is online
+			</h5>
+
+			<ul class="nav nav-tabs mb-2 mb-md-3">
+				<li class="nav-item">
+					<button
+						class="nav-link active"
+						id="encryptTab"
+						data-bs-toggle="tab"
+						data-bs-target="#encryptContainer"
+						type="button">
+						<i class="bi-lock"></i>
+						&nbsp;
+						<span>Encrypt</span>
+					</button>
+				</li>
+				<li class="nav-item">
+					<button
+						class="nav-link"
+						id="decryptTab"
+						data-bs-toggle="tab"
+						data-bs-target="#decryptContainer"
+						type="button">
+						<i class="bi-unlock"></i>
+						&nbsp;Decrypt
+					</button>
+				</li>
+			</ul>
+		</div>
+
+		<div class="tab-content">
+			<form class="container tab-pane show active" id="encryptContainer">
+				<h3>Encryption</h3>
+
+				<div class="row mb-1 mb-md-3">
+					<label class="col-md-2 col-form-label" for="password">Passphrase</label>
+					<div class="col-md-10">
+						<input
+							class="form-control"
+							id="password"
+							type="text"
+							autocomplete="off"
+							autocorrect="off"
+							autocapitalize="off"
+							spellcheck="false">
+						<div class="invalid-feedback">Invalid passphrase.</div>
+						<div class="form-text hidden text-break" id="passwordHex"></div>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="salt">Salt</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<input
+								class="form-control"
+								id="salt"
+								type="text"
+								autocomplete="off"
+								autocorrect="off"
+								autocapitalize="off"
+								spellcheck="false">
+							<button class="btn btn-outline-secondary d-flex align-items-center" id="refreshSalt" type="button">
+								<i class="bi-arrow-repeat"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="kdf">Key derivation function</label>
+					<div class="col-md-10">
+						<select class="form-select" id="kdf" autocomplete="off">
+							<option value="argon2" selected>Argon2</option>
+							<!-- <option value="scrypt" disabled>scrypt</option>
+							<option value="bcrypt" disabled>bcrypt</option>
+							<option value="shake" disabled>SHAKE256</option> -->
+							<option value="pbkdf2">PBKDF2</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="paramEncoding">Parameter encoding</label>
+					<div class="col-md-10">
+						<select class="form-select" id="paramEncoding" autocomplete="off">
+							<option value="default" selected>Use default KDF parameters</option>
+							<option value="encode">Encode KDF parameters with the cipher</option>
+							<option value="none">Don't encode KDF parameters</option>
+						</select>
+					</div>
+				</div>
+
+				<!-- argon2 parameters-->
+				<div class="row mb-2 mb-md-3 argon-param argon-range hidden">
+					<label class="col-md-2 col-form-label" for="argonType">Argon2 type</label>
+					<div class="col-md-10">
+						<select class="form-select" id="argonType" autocomplete="off">
+							<option value="0" selected>Argon2d</option>
+							<option value="1">Argon2i</option>
+							<option value="2">Argon2id</option>
+							<!-- <option value="4">Argon2ds</option> -->
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 argon-range hidden">
+					<div class="col-6 col-md-2">
+						<label for="argonMrange">Memory</label>
+					</div>
+					<div class="col-6 col-md-2 col-lg-1 text-end order-md-last">
+						<span class="text-nowrap" id="argonMvalue"></span>
+					</div>
+					<div class="col-md-8 col-lg-9">
+						<input class="form-range" id="argonMrange" type="range" min="0" max="7" value="3" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 argon-range hidden">
+					<div class="col-6 col-md-2">
+						<label for="argonTrange">Iterations</label>
+					</div>
+					<div class="col-6 col-md-2 col-lg-1 text-end order-md-last">
+						<span id="argonTvalue"></span>
+					</div>
+					<div class="col-md-8 col-lg-9">
+						<input class="form-range" id="argonTrange" type="range" min="0" max="7" value="2" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 argon-range hidden">
+					<div class="col-6 col-md-2">
+						<label for="argonPrange">Parallelism</label>
+					</div>
+					<div class="col-6 col-md-2 col-lg-1 text-end order-md-last">
+						<span id="argonPvalue"></span>
+					</div>
+					<div class="col-md-8 col-lg-9">
+						<input class="form-range" id="argonPrange" type="range" min="0" max="6" value="0" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 argon-param hidden">
+					<label class="col-md-2 col-form-label" for="argonM">Memory</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<input class="form-control" id="argonM" type="number" value="1" autocomplete="off">
+							<select
+								class="form-control border border-secondary"
+								id="argonScaling"
+								style="max-width: 3.5rem"
+								autocomplete="off">
+								<option value="1048576" selected>GiB</option>
+								<option value="1024">MiB</option>
+								<option value="1">KiB</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 argon-param hidden">
+					<label class="col-md-2 col-form-label" for="argonT">Iterations</label>
+					<div class="col-md-10">
+						<input class="form-control" id="argonT" type="number" value="4" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 argon-param hidden">
+					<label class="col-md-2 col-form-label" for="argonP">Parallelism</label>
+					<div class="col-md-10">
+						<input class="form-control" id="argonP" type="number" value="1" autocomplete="off">
+					</div>
+				</div>
+
+				<!-- pbkdf2 parameters-->
+
+				<div class="row mb-2 mb-md-3 pbkdf-param pbkdf-range hidden">
+					<label class="col-md-2 col-form-label" for="pbkdfHash">Hash function</label>
+					<div class="col-md-10">
+						<select class="form-select" id="pbkdfHash" autocomplete="off">
+							<option value="0" selected>SHA-512</option>
+							<option value="1">SHA-384</option>
+							<option value="2">SHA-256</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 pbkdf-range hidden">
+					<div class="col-6 col-md-2">
+						<label for="pbkdfIrange">Iterations</label>
+					</div>
+					<div class="col-6 col-md-2 text-end order-md-last">
+						<span id="pbkdfIvalue">10,000,000</span>
+					</div>
+					<div class="col-md-8">
+						<input class="form-range" id="pbkdfIrange" type="range" min="0" max="9" value="3" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 pbkdf-param hidden">
+					<label class="col-md-2 col-form-label" for="pbkdfI">Iterations</label>
+					<div class="col-md-10">
+						<input class="form-control" id="pbkdfI" type="number" value="1000000" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<div class="col-md offset-md-2">
+						<button class="btn btn-primary" id="generateKey" type="button">
+							<i class="bi-key"></i>
+							Generate Key
+						</button>
+						&nbsp;
+						<span class="form-text" id="elapsed"></span>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 hidden">
+					<div class="col-md offset-md-2">
+						<div class="progress position-relative">
+							<span id="generateProgressText" style="position: absolute; left: 50%; transform: translateX(-50%)"></span>
+							<div class="progress-bar" id="generateProgress" role="progressbar"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="encryptionKey">Encryption key</label>
+					<div class="col-md-10">
+						<input
+							class="form-control"
+							id="encryptionKey"
+							type="text"
+							autocomplete="off"
+							autocorrect="off"
+							autocapitalize="off"
+							spellcheck="false"
+							readonly>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="mnemonic">Mnemonic phrase</label>
+					<div class="col-md-10">
+						<textarea
+							class="form-control"
+							id="mnemonic"
+							autocomplete="off"
+							autocorrect="off"
+							autocapitalize="off"
+							spellcheck="false"></textarea>
+						<div class="invalid-feedback">Invalid mnemonic phrase.</div>
+						<div class="form-text hidden text-break" id="mnemonicHex"></div>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="padding">Random padding</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<input class="form-control" id="padding" type="number" value="0" min="0" autocomplete="off">
+							<span class="input-group-text">Bytes</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="outputEncoding">Output encoding</label>
+					<div class="col-md-10">
+						<select class="form-select" id="outputEncoding" autocomplete="off">
+							<option value="base64" selected>Base64</option>
+							<option value="hex">Hex</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="cypher">Encrypted mnemonic</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<input class="form-control" id="cypher" type="text" readonly>
+							<button class="btn btn-outline-secondary d-flex align-items-center" id="copyCypher" type="button">
+								<i class="bi-copy"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="row mb-3 mb-md-3">
+					<label class="col-md-2 col-form-label" for="code2d">2D code type</label>
+					<div class="col-md-10">
+						<select class="form-select" id="code2d" autocomplete="off">
+							<option value="qrcode" selected>QR Code</option>
+							<option value="datamatrix">Data Matrix</option>
+							<option value="azteccode">Aztec Code</option>
+							<option value="pdf417">PDF417</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<div class="col-md-10 offset-md-2">
+						<canvas class="d-inline-block border" id="cypher2d" style="width: 100%; max-width: 20rem"></canvas>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<div class="col-md-10 offset-md-2">
+						<button class="btn btn-primary" id="saveCode" type="button">
+							<i class="bi-floppy"></i>
+							Save code
+						</button>
+					</div>
+				</div>
+			</form>
+
+			<!--
+			****************************************************************************************
+			                                    DECRYPTION
+			****************************************************************************************
+			-->
+
+			<form class="container tab-pane" id="decryptContainer">
+				<h3>Decryption</h3>
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="de_cypher">Encrypted mnemonic</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<input
+								class="form-control"
+								id="de_cypher"
+								type="text"
+								autocomplete="off"
+								autocorrect="off"
+								autocapitalize="off"
+								spellcheck="false">
+							<button class="btn btn-outline-secondary d-flex align-items-center" id="openFile" type="button">
+								<i class="bi bi-folder2-open"></i>
+							</button>
+							<button class="btn btn-outline-secondary d-flex align-items-center" id="openScanner" type="button">
+								<i class="bi bi-qr-code-scan"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 hidden">
+					<div class="col-sm offset-sm-2 position-relative" style="min-height: 2rem">
+						<div id="reader"></div>
+						<i
+							class="bi bi-x-lg position-absolute top-0"
+							id="closeScanner"
+							style="right: 1rem; font-size: xx-large; color: grey"></i>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="de_password">Passphrase</label>
+					<div class="col-md-10">
+						<input
+							class="form-control"
+							id="de_password"
+							type="text"
+							autocomplete="off"
+							autocorrect="off"
+							autocapitalize="off"
+							spellcheck="false">
+						<div class="invalid-feedback">Invalid passphrase.</div>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 hidden">
+					<label class="col-md-2 col-form-label" for="de_saltLength">Salt length</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<input class="form-control" id="de_saltLength" type="number" value="8" autocomplete="off">
+							<span class="input-group-text">Bytes</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="de_kdf">Key derivation function</label>
+					<div class="col-md-10">
+						<select class="form-select" id="de_kdf" autocomplete="off">
+							<option value="argon2" selected>Argon2</option>
+							<option value="pbkdf2">PBKDF2</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="de_paramEncoding">Parameter encoding</label>
+					<div class="col-md-10">
+						<select class="form-select" id="de_paramEncoding" autocomplete="off">
+							<option value="default" selected>Use default KDF parameters</option>
+							<option value="decode">Decode KDF parameters from the cipher</option>
+							<option value="none">Manually set KDF parameters</option>
+						</select>
+						<div class="form-text hidden text-break" id="de_paramText"></div>
+					</div>
+				</div>
+
+				<!-- argon2 parameters-->
+				<div class="row mb-2 mb-md-3 de_argon-param hidden">
+					<label class="col-md-2 col-form-label" for="de_argonType">Argon2 type</label>
+					<div class="col-md-10">
+						<select class="form-select" id="de_argonType" autocomplete="off">
+							<option value="0" selected>Argon2d</option>
+							<option value="1">Argon2i</option>
+							<option value="2">Argon2id</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 de_argon-param hidden">
+					<label class="col-md-2 col-form-label" for="de_argonM">Memory</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<input class="form-control" id="de_argonM" type="number" value="1" autocomplete="off">
+							<select
+								class="form-control border border-secondary"
+								id="de_argonScaling"
+								style="max-width: 3.5rem"
+								autocomplete="off">
+								<option value="1048576" selected>GiB</option>
+								<option value="1024">MiB</option>
+								<option value="1">KiB</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 de_argon-param hidden">
+					<label class="col-md-2 col-form-label" for="de_argonT">Iterations</label>
+					<div class="col-md-10">
+						<input class="form-control" id="de_argonT" type="number" value="10" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 de_argon-param hidden">
+					<label class="col-md-2 col-form-label" for="de_argonP">Parallelism</label>
+					<div class="col-md-10">
+						<input class="form-control" id="de_argonP" type="number" value="1" autocomplete="off">
+					</div>
+				</div>
+
+				<!-- pbkdf2 parameters-->
+				<div class="row mb-2 mb-md-3 de_pbkdf-param hidden">
+					<label class="col-md-2 col-form-label" for="de_pbkdfHash">Hash function</label>
+					<div class="col-md-10">
+						<select class="form-select" id="de_pbkdfHash" autocomplete="off">
+							<option value="0" selected>SHA-512</option>
+							<option value="1">SHA-384</option>
+							<option value="2">SHA-256</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 de_pbkdf-param hidden">
+					<label class="col-md-2 col-form-label" for="de_pbkdfI">Iterations</label>
+					<div class="col-md-10">
+						<input class="form-control" id="de_pbkdfI" type="number" value="1000000" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<div class="col-md offset-md-2">
+						<button class="btn btn-primary" id="de_generateKey" type="button">
+							<i class="bi-key"></i>
+							&nbsp;Decrypt
+						</button>
+						&nbsp;
+						<span class="form-text" id="de_elapsed"></span>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 hidden">
+					<div class="col-md offset-md-2">
+						<div class="progress position-relative">
+							<span
+								id="de_generateProgressText"
+								style="position: absolute; left: 50%; transform: translateX(-50%)"></span>
+							<div class="progress-bar" id="de_generateProgress" role="progressbar"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="de_key">Encryption key</label>
+					<div class="col-md-10">
+						<input
+							class="form-control"
+							id="de_key"
+							type="text"
+							autocomplete="off"
+							autocorrect="off"
+							autocapitalize="off"
+							spellcheck="false">
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="de_mnemonicLength">Mnemonic length</label>
+					<div class="col-md-10">
+						<select class="form-select" id="de_mnemonicLength" autocomplete="off">
+							<option value="16" selected>12 words</option>
+							<option value="20">15 words</option>
+							<option value="24">18 words</option>
+							<option value="28">21 words</option>
+							<option value="32">24 words</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="de_mnemonic">Mnemonic phrase</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<textarea
+								class="form-control"
+								id="de_mnemonic"
+								autocomplete="off"
+								autocorrect="off"
+								autocapitalize="off"
+								spellcheck="false"
+								readonly></textarea>
+							<button class="btn btn-outline-secondary d-flex align-items-center" id="de_showQrcode" type="button">
+								<i class="bi-qr-code"></i>
+							</button>
+							<button class="btn btn-outline-secondary d-flex align-items-center" id="copyMnemonic" type="button">
+								<i class="bi-copy"></i>
+							</button>
+						</div>
+						<div class="form-text text-break" id="de_mnemonicHex"></div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div
+			class="hidden position-fixed top-0 start-0 vw-100 vh-100 bg-white"
+			id="qrOverlay"
+			style="z-index: 9999; display: flex; justify-content: center; align-items: center"></div>
+
+		<script src="js/main.js"></script>
+	</body>
+</html>
