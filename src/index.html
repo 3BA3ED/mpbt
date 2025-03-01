@@ -55,6 +55,23 @@
 						&nbsp;Decrypt
 					</button>
 				</li>
+				<li class="nav-item">
+					<button class="nav-link" id="splitTab" data-bs-toggle="tab" data-bs-target="#splitContainer" type="button">
+						<i class="bi-diagram-3 mr-1"></i>
+						&nbsp;Split
+					</button>
+				</li>
+				<li class="nav-item">
+					<button
+						class="nav-link"
+						id="combineTab"
+						data-bs-toggle="tab"
+						data-bs-target="#combineContainer"
+						type="button">
+						<i class="bi-diagram-3 icon-flipped mr-1"></i>
+						&nbsp;Combine
+					</button>
+				</li>
 			</ul>
 		</div>
 
@@ -330,7 +347,7 @@
 
 				<div class="row mb-2 mb-md-3">
 					<div class="col-md-10 offset-md-2">
-						<canvas class="d-inline-block border" id="cypher2d" style="width: 100%; max-width: 20rem"></canvas>
+						<canvas class="img-thumbnail" id="cypher2d" style="width: 100%; max-width: 25rem"></canvas>
 					</div>
 				</div>
 
@@ -340,6 +357,7 @@
 							<i class="bi-floppy"></i>
 							Save code
 						</button>
+						<a class="ms-3" id="sendToSplit" href="#">Split→</a>
 					</div>
 				</div>
 			</form>
@@ -534,11 +552,11 @@
 					<label class="col-md-2 col-form-label" for="de_mnemonicLength">Mnemonic length</label>
 					<div class="col-md-10">
 						<select class="form-select" id="de_mnemonicLength" autocomplete="off">
-							<option value="16" selected>12 words</option>
+							<option class="fw-bold" value="16" selected>12 words</option>
 							<option value="20">15 words</option>
 							<option value="24">18 words</option>
 							<option value="28">21 words</option>
-							<option value="32">24 words</option>
+							<option class="fw-bold" value="32">24 words</option>
 						</select>
 					</div>
 				</div>
@@ -558,11 +576,139 @@
 							<button class="btn btn-outline-secondary d-flex align-items-center" id="de_showQrcode" type="button">
 								<i class="bi-qr-code"></i>
 							</button>
-							<button class="btn btn-outline-secondary d-flex align-items-center" id="copyMnemonic" type="button">
+							<button class="btn btn-outline-secondary d-flex align-items-center" id="de_copyMnemonic" type="button">
 								<i class="bi-copy"></i>
 							</button>
 						</div>
 						<div class="form-text text-break" id="de_mnemonicHex"></div>
+					</div>
+				</div>
+			</form>
+
+			<!--
+			****************************************************************************************
+			                                        SPLITTING
+			****************************************************************************************
+			-->
+
+			<form class="container tab-pane" id="splitContainer">
+				<h3>Splitting</h3>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="sp_secret">Mnemonic phrase / encrypted payload</label>
+					<div class="col-md-10">
+						<textarea
+							class="form-control"
+							id="sp_secret"
+							autocomplete="off"
+							autocorrect="off"
+							autocapitalize="off"
+							spellcheck="false"></textarea>
+						<div class="invalid-feedback">Invalid mnemonic phrase / encrypted payload.</div>
+						<div class="form-text text-break" id="sp_secretHex"></div>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="sp_sharesTotal">Number of shares</label>
+					<div class="col-md-10">
+						<input class="form-control" id="sp_sharesTotal" type="number" value="3" min="2" max="250">
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="sp_sharesRequired">Shares required</label>
+					<div class="col-md-10">
+						<input class="form-control" id="sp_sharesRequired" type="number" value="2" min="2">
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="sp_outputEncoding">Output encoding</label>
+					<div class="col-md-10">
+						<select class="form-select" id="sp_outputEncoding" autocomplete="off">
+							<option value="base64" selected>Base64</option>
+							<option value="hex">Hex</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-4">
+					<label class="col-md-2 col-form-label" for="code2d">2D code type</label>
+					<div class="col-md-10">
+						<select class="form-select" id="sp_code2d" autocomplete="off">
+							<option value="qrcode" selected>QR Code</option>
+							<option value="datamatrix">Data Matrix</option>
+							<option value="azteccode">Aztec Code</option>
+							<option value="pdf417">PDF417</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3" id="sharesContainer"></div>
+			</form>
+
+			<!--
+			****************************************************************************************
+			                                        COMBINING
+			****************************************************************************************
+			-->
+
+			<form class="container tab-pane" id="combineContainer">
+				<h3>Combining</h3>
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="re_sharesNumber">Number of shares</label>
+					<div class="col-md-10">
+						<input class="form-control" id="re_sharesNumber" type="number" value="2" min="2" max="250">
+					</div>
+				</div>
+
+				<div id="re_sharesContainer"></div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="re_outputEncoding">Output type</label>
+					<div class="col-md-10">
+						<select class="form-select" id="re_outputEncoding" autocomplete="off">
+							<option value="base64" selected>Base64</option>
+							<option value="hex">Hex</option>
+							<option value="mnemonic">BIP39 mnemonic</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3 hidden">
+					<label class="col-md-2 col-form-label" for="re_mnemonicLength">Mnemonic length</label>
+					<div class="col-md-10">
+						<select class="form-select" id="re_mnemonicLength" autocomplete="off">
+							<option class="fw-bold" value="16" selected>12 words</option>
+							<option value="20">15 words</option>
+							<option value="24">18 words</option>
+							<option value="28">21 words</option>
+							<option class="fw-bold" value="32">24 words</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-2 mb-md-3">
+					<label class="col-md-2 col-form-label" for="re_secret">Reassembled secret</label>
+					<div class="col-md-10">
+						<div class="input-group mb-2">
+							<textarea
+								class="form-control"
+								id="re_secret"
+								autocomplete="off"
+								autocorrect="off"
+								autocapitalize="off"
+								spellcheck="false"
+								readonly></textarea>
+							<button class="btn btn-outline-secondary d-flex align-items-center" id="re_showQrcode" type="button">
+								<i class="bi-qr-code"></i>
+							</button>
+							<button class="btn btn-outline-secondary d-flex align-items-center" id="re_copySecret" type="button">
+								<i class="bi-copy"></i>
+							</button>
+						</div>
+						<a class="me-3" id="sendToDecrypt" href="#">Decrypt→</a>
 					</div>
 				</div>
 			</form>

@@ -119,6 +119,7 @@ function getBytes(s) {
 		if (s.length % 2) return null;
 		return toByteArray(s);
 	} else {
+		if (!/^[A-Za-z0-9+/=]*$/.test(s)) return null;
 		try {
 			return Uint8Array.from(atob(s), c => c.charCodeAt(0));
 		} catch {

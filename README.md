@@ -6,11 +6,12 @@
 
 A collection of tools to secure BIP39 mnemonic phrase backups.
 
-Use [online version](https://3BA3ED.github.com/mpbt/) or download `mpbt.html` from
+Use [online demo version](https://3BA3ED.github.com/mpbt/) or download `mpbt.html` from
 [releases](https://github.com/3BA3ED/mpbt/releases). 
 
 ### Features
-- **Encrypt** mnemonic to secure both online and offline backups
+- **Encrypt** mnemonic phrases to secure online and offline backups
+- **Split** into multiple shares, with only some required for restoring
 - **Portable** - small html file that runs in most modern browsers
 - **Customizable** encryption - choose kdf and set parameters
 - **Deniable encryption** - decrypt with any password

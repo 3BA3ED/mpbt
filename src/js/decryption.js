@@ -179,7 +179,7 @@ $de_cypher.onchange = function () {
 		validateField($de_cypher, true);
 	}
 
-	$de_mnemonicLength.value = (cypher.length == 32) | (cypher.length == 33) ? 32 : 16;
+	$de_mnemonicLength.value = cypher.length == 32 || cypher.length == 33 ? 32 : 16;
 	for (const option of $de_mnemonicLength.options) {
 		option.disabled = +option.value > cypher.length;
 	}
@@ -319,7 +319,7 @@ function updateMnemonic() {
 	$de_mnemonic.value = bip39.entropyToMnemonic(e);
 }
 
-document.getElementById('copyMnemonic').addEventListener('click', function () {
+document.getElementById('de_copyMnemonic').addEventListener('click', function () {
 	navigator.clipboard.writeText($de_mnemonic.value);
 	this.children[0].className = '';
 	this.children[0].classList.add('bi-clipboard-check');

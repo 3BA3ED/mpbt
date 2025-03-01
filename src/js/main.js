@@ -22,3 +22,5 @@ window.addEventListener('unhandledrejection', e => {
 
 import './encryption.js';
 import './decryption.js';
+import './splitting.js';
+import './combining.js';

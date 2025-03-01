@@ -397,11 +397,9 @@ function updateCypher() {
 				+$argonTrange.value,
 				+$argonPrange.value,
 			);
-			// buffer = xorArrays(buffer, toByteArray($salt.value));
 			output = $salt.value + toHexString(buffer) + toHexString(x) + pad;
 		} else if ($kdf.value == 'pbkdf2') {
 			let buffer = encodePbkdf2Parameters(+$pbkdfHash.value, +$pbkdfIrange.value);
-			// buffer = xorArrays(buffer, toByteArray($salt.value));
 			output = $salt.value + toHexString(buffer) + toHexString(x) + pad;
 		}
 	} else {
@@ -452,12 +450,18 @@ $code2d.onchange = function () {
 };
 
 $saveCode.onclick = function () {
-	const dataURL = $cypher2d.toDataURL('image/png');
+	const dataURL = $cypher2d.toDataURL('image/jpeg');
 	const a = document.createElement('a');
 	a.href = dataURL;
 	a.download = $salt.value.slice(0, 6);
 	document.body.append(a);
 	a.click();
+};
+
+document.getElementById('sendToSplit').onclick = function () {
+	document.getElementById('sp_secret').value = $cypher.value;
+	document.getElementById('sp_secret').onchange();
+	document.getElementById('splitTab').click();
 };
 
 /**
